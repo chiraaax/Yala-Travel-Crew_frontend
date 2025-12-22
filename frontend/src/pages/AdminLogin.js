@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { adminLogin } from '../services/api';
 
 const AdminLogin = () => {
   const [email, setEmail] = useState('');
@@ -8,21 +9,18 @@ const AdminLogin = () => {
   const [error, setError] = useState('');
   const navigate = useNavigate();
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      // Make sure your backend is running on this port
-      const res = await axios.post('http://localhost:5000/api/admin/login', { email, password });
-      
-      // Save token to localStorage
-      localStorage.setItem('adminToken', res.data.token);
+const handleSubmit = async (e) => {
+  e.preventDefault();
+  try {
+    const res = await adminLogin({ email, password });
 
-      // Redirect to Admin Dashboard
-      navigate('/admin');
-    } catch (err) {
-      setError(err.response?.data?.message || 'Login failed');
-    }
-  };
+    localStorage.setItem("adminToken", res.data.token);
+    navigate("/admin");
+  } catch (err) {
+    setError(err.response?.data?.message || "Login failed");
+  }
+};
+
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-gray-900">

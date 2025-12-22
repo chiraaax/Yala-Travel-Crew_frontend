@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { getGallerys } from '../services/api';
 import PageTransition from '../components/PageTransition';
+import { getImageUrl } from "../utils/getImageUrl";
+
 
 const Gallery = () => {
   const [galleryItems, setGalleryItems] = useState([]);
@@ -9,10 +11,14 @@ const Gallery = () => {
   const [error, setError] = useState(null);
   const [selectedImage, setSelectedImage] = useState(null);
 
-  const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
-  const getImageUrl = (imagePath) => {
-    return imagePath ? `${API_URL}${imagePath}` : 'https://via.placeholder.com/400x300?text=No+Image';
-  };
+  <img
+  src={getImageUrl(
+    item.image,
+    "https://via.placeholder.com/400x300?text=No+Image"
+  )}
+  alt={item.title}
+/>
+
 
   useEffect(() => {
     fetchGalleryItems();

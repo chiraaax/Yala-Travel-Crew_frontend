@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { getRentals } from '../services/api';
 import PageTransition from '../components/PageTransition';
+import { getImageUrl } from "../utils/getImageUrl";
+
 
 const Rentals = () => {
   const [rentals, setRentals] = useState([]);
@@ -12,12 +14,11 @@ const Rentals = () => {
   const formattedNumber = whatsappNumber.replace(/[^0-9]/g, '');
 
   // Backend URL for images
-  const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000/api';
-  const BASE_URL = API_URL.replace('/api', ''); 
-  
-  const getImageUrl = (imagePath) => {
-    return imagePath ? `${BASE_URL}${imagePath}` : '/placeholder.jpg';
-  };
+<img
+  src={getImageUrl(rental.image, "/placeholder.jpg")}
+  alt={rental.vehicleName}
+/>
+
 
   useEffect(() => {
     fetchRentals();

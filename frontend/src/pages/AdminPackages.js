@@ -25,7 +25,8 @@ export default function AdminPackages() {
   });
 
   // Backend URL for images (construct full URL for display)
-  const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
+  // const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
+  const API_URL = process.env.REACT_APP_API_BASE_URL;
   const getImageUrl = (imagePath) => {
     return imagePath ? `${API_URL}${imagePath}` : 'https://via.placeholder.com/150x150?text=No+Image';
   };

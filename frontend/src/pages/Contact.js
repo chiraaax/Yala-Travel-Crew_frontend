@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import PageTransition from '../components/PageTransition';
 import axios from 'axios';
+import { sendContactEmail } from '../services/api';
 import { 
   Phone, Mail, MapPin, Send, MessageCircle, 
   Navigation, ArrowRight 
@@ -40,24 +41,22 @@ const Contact = () => {
   };
 
   /* ================= EMAIL ================= */
-  const handleEmail = async (e) => {
-    e.preventDefault();
-    setLoading(true);
+const handleEmail = async (e) => {
+  e.preventDefault();
+  setLoading(true);
 
-    try {
-      await axios.post(
-        'http://localhost:5000/api/contact/send-email',
-        formData
-      );
-      alert('Email sent successfully!');
-      setFormData({ name: '', email: '', message: '' });
-    } catch (error) {
-      console.error(error);
-      alert('Failed to send email');
-    } finally {
-      setLoading(false);
-    }
-  };
+  try {
+    await sendContactEmail(formData);
+    alert("Email sent successfully!");
+    setFormData({ name: "", email: "", message: "" });
+  } catch (error) {
+    console.error(error);
+    alert("Failed to send email");
+  } finally {
+    setLoading(false);
+  }
+};
+
 
   const handleNavigate = () => {
     window.open("https://www.google.com/maps/dir/?api=1&destination=Tissamaharama,+Sri+Lanka", "_blank");

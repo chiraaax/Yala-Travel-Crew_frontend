@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { getImageUrl } from "../utils/getImageUrl";
 import {
   getTours,
   createTour,
@@ -31,11 +32,14 @@ export default function AdminTours() {
   }, []);
 
   // Backend URL for images (Strip /api from API_URL for static files)
-  const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000/api';
-  const BASE_URL = API_URL.replace('/api', ''); // e.g., 'http://localhost:5000'
-  const getImageUrl = (imagePath) => {
-    return imagePath ? `${BASE_URL}${imagePath}` : 'https://via.placeholder.com/400x256?text=No+Image';
-  };
+  <img
+  src={getImageUrl(
+    tour.image,
+    "https://via.placeholder.com/400x256?text=No+Image"
+  )}
+  alt={tour.title}
+/>
+
 
   // Load tours
   useEffect(() => {

@@ -2,16 +2,22 @@ import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { getPackages } from '../services/api';
 import PageTransition from '../components/PageTransition';
+import { getImageUrl } from "../utils/getImageUrl";
+
 
 const Packages = () => {
   const [packages, setPackages] = useState([]);
   const [loading, setLoading] = useState(true);
 
   // Backend base URL for images
-  const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
-  const getImageUrl = (imagePath) => {
-    return imagePath ? `${API_URL}${imagePath}` : 'https://via.placeholder.com/400x300?text=No+Image';
-  };
+<img
+  src={getImageUrl(
+    pkg.image,
+    "https://via.placeholder.com/400x300?text=No+Image"
+  )}
+  alt={pkg.title}
+/>
+
 
   // WhatsApp Config
   const whatsappNumber = process.env.REACT_APP_WHATSAPP_NUMBER || "+94772217970";

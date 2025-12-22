@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { getImageUrl } from "../utils/getImageUrl";
 import {
   getRentals,
   createRental,
@@ -32,13 +33,14 @@ export default function AdminRentals() {
   }, []);
 
   // Backend URL for images (FIX: Strip /api from API_URL for static files)
-  const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000/api';
-  const BASE_URL = API_URL.replace('/api', ''); // e.g., 'http://localhost:5000'
-  const getImageUrl = (imagePath) => {
-    const url = imagePath ? `${BASE_URL}${imagePath}` : 'https://via.placeholder.com/400x256?text=No+Image';
-    // console.log("Image URL for", imagePath, ":", url); // optional debug
-    return url;
-  };
+  <img
+  src={getImageUrl(
+    rental.image,
+    "https://via.placeholder.com/400x256?text=No+Image"
+  )}
+  alt={rental.vehicleName}
+/>
+
 
   // Load rentals
   useEffect(() => {

@@ -4,6 +4,8 @@ import { Link } from 'react-router-dom';
 import { Clock, Users, ArrowRight, AlertCircle, Sparkles } from 'lucide-react';
 import { getTours } from '../services/api';
 import PageTransition from '../components/PageTransition';
+import { getImageUrl } from "../utils/getImageUrl";
+
 
 const Tours = () => {
   const [tours, setTours] = useState([]);
@@ -11,12 +13,14 @@ const Tours = () => {
   const [error, setError] = useState(null);
 
   // API Config
-  const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000/api';
-  const BASE_URL = API_URL.replace('/api', '');
-  
-  const getImageUrl = (imagePath) => {
-    return imagePath ? `${BASE_URL}${imagePath}` : 'https://images.unsplash.com/photo-1549366021-9f761d450615?auto=format&fit=crop&q=80';
-  };
+<img
+  src={getImageUrl(
+    tour.image,
+    "https://images.unsplash.com/photo-1549366021-9f761d450615?auto=format&fit=crop&q=80"
+  )}
+  alt={tour.title}
+/>
+
 
   useEffect(() => {
     fetchTours();
