@@ -33,13 +33,7 @@ export default function AdminRentals() {
   }, []);
 
   // Backend URL for images (FIX: Strip /api from API_URL for static files)
-  <img
-  src={getImageUrl(
-    rental.image,
-    "https://via.placeholder.com/400x256?text=No+Image"
-  )}
-  alt={rental.vehicleName}
-/>
+
 
 
   // Load rentals
