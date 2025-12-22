@@ -13,13 +13,17 @@ const Tours = () => {
   const [error, setError] = useState(null);
 
   // API Config
-<img
-  src={getImageUrl(
-    tour.image,
-    "https://images.unsplash.com/photo-1549366021-9f761d450615?auto=format&fit=crop&q=80"
-  )}
-  alt={tour.title}
-/>
+{tours.map((tour) => (
+  <div key={tour._id}>
+    <img
+      src={getImageUrl(
+        tour.image,
+        "https://images.unsplash.com/photo-1549366021-9f761d450615?auto=format&fit=crop&q=80"
+      )}
+      alt={tour.title}
+    />
+  </div>
+))}
 
 
   useEffect(() => {

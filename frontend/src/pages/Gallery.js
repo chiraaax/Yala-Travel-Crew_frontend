@@ -11,13 +11,18 @@ const Gallery = () => {
   const [error, setError] = useState(null);
   const [selectedImage, setSelectedImage] = useState(null);
 
-  <img
-  src={getImageUrl(
-    item.image,
-    "https://via.placeholder.com/400x300?text=No+Image"
-  )}
-  alt={item.title}
-/>
+{galleryItems.map((item) => (
+  <div key={item._id}>
+    <img
+      src={getImageUrl(
+        item.image,
+        "https://via.placeholder.com/400x300?text=No+Image"
+      )}
+      alt={item.title}
+    />
+  </div>
+))}
+
 
 
   useEffect(() => {

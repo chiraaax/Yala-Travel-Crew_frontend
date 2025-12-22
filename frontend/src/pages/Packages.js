@@ -10,13 +10,18 @@ const Packages = () => {
   const [loading, setLoading] = useState(true);
 
   // Backend base URL for images
-<img
-  src={getImageUrl(
-    pkg.image,
-    "https://via.placeholder.com/400x300?text=No+Image"
-  )}
-  alt={pkg.title}
-/>
+{packages.map((pkg) => (
+  <div key={pkg._id}>
+    <img
+      src={getImageUrl(
+        pkg.image,
+        "https://via.placeholder.com/400x300?text=No+Image"
+      )}
+      alt={pkg.title}
+    />
+  </div>
+))}
+
 
 
   // WhatsApp Config

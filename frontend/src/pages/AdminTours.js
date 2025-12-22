@@ -32,13 +32,18 @@ export default function AdminTours() {
   }, []);
 
   // Backend URL for images (Strip /api from API_URL for static files)
-  <img
-  src={getImageUrl(
-    tour.image,
-    "https://via.placeholder.com/400x256?text=No+Image"
-  )}
-  alt={tour.title}
-/>
+{tours.map((tour) => (
+  <div key={tour._id}>
+    <img
+      src={getImageUrl(
+        tour.image,
+        "https://via.placeholder.com/400x256?text=No+Image"
+      )}
+      alt={tour.title}
+    />
+  </div>
+))}
+
 
 
   // Load tours

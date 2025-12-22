@@ -14,10 +14,18 @@ const Rentals = () => {
   const formattedNumber = whatsappNumber.replace(/[^0-9]/g, '');
 
   // Backend URL for images
-<img
-  src={getImageUrl(rental.image, "/placeholder.jpg")}
-  alt={rental.vehicleName}
-/>
+{rentals.map((rental) => (
+  <div key={rental._id}>
+    <img
+      src={getImageUrl(
+        rental.image,
+        "/placeholder.jpg"
+      )}
+      alt={rental.vehicleName}
+    />
+  </div>
+))}
+
 
 
   useEffect(() => {
