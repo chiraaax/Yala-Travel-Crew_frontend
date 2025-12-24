@@ -111,7 +111,7 @@ const Home = () => {
                 <div className="w-8 h-8 rounded-full bg-white text-black flex items-center justify-center group-hover:scale-110 transition-transform">
                   <Play className="w-3 h-3 fill-current ml-0.5" />
                 </div>
-                Watch Film
+                Watch Photo
               </Link>
             </motion.div>
           </motion.div>
