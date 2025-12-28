@@ -211,7 +211,7 @@ const Footer = () => {
             </a>
             <span>&</span>
             <a 
-              href="#" // Placeholder for Chira
+              href="https://github.com/chiraaax" // Placeholder for Chira
               className="text-gray-700 dark:text-gray-400 hover:text-green-700 dark:hover:text-green-400 transition-colors border-b border-dotted border-gray-400 dark:border-gray-600 hover:border-green-700 dark:hover:border-green-400"
             >
               Chira
