@@ -1,11 +1,10 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import PageTransition from '../components/PageTransition';
-import axios from 'axios';
 import { sendContactEmail } from '../services/api';
 import { 
   Phone, Mail, MapPin, Send, MessageCircle, 
-  Navigation, ArrowRight 
+  Navigation 
 } from 'lucide-react';
 
 const Contact = () => {

@@ -89,8 +89,7 @@ const Home = () => {
 
             {/* Subtitle */}
             <motion.p variants={fadeInUp} className="text-lg md:text-xl text-gray-200 font-light mb-10 max-w-2xl mx-auto leading-relaxed">
-              Experience the untamed beauty of Yala National Park with bespoke luxury tours, expert guides, and premium comfort.
-            </motion.p>
+                Discover the island’s breathtaking landscapes with curated journeys and unmatched travel comfort.            </motion.p>
 
             {/* Buttons */}
             <motion.div variants={fadeInUp} className="flex flex-col sm:flex-row gap-5 justify-center items-center">
@@ -161,7 +160,7 @@ const Home = () => {
               Curated <span className="text-primary-600">Experiences</span>
             </h2>
             <p className="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
-              We don't just offer tours; we craft journeys. Choose how you want to explore the wild.
+              We don't just offer transport; we craft journeys. Travel seamlessly across the island’s most breathtaking terrains.
             </p>
           </motion.div>
 
@@ -176,7 +175,7 @@ const Home = () => {
             />
             <ServiceCard 
               icon={<Car className="w-8 h-8" />}
-              title="Car van Hire"
+              title="Car Or Van Hire"
               desc="Premium 4x4 fleet tailored for comfort and photography during your ride."
               link="/rentals"
               color="bg-blue-600"
@@ -214,7 +213,8 @@ const Home = () => {
                   </span>
                 </h2>
                 <p className="text-lg text-gray-600 dark:text-gray-300 mb-8 leading-relaxed">
-                  With over 15 years of experience in Yala National Park, we prioritize safety, comfort, and ethical wildlife tracking to ensure you get the perfect shot without disturbing nature.
+                  We prioritize your safety and comfort, guaranteeing a reliable journey and skillful driving to ensure you access the best scenic spots safely, allowing you to enjoy nature’s wonders undisturbed.
+
                 </p>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
@@ -249,7 +249,7 @@ const Home = () => {
 
       <section className="relative py-28 overflow-hidden">
         <div className="absolute inset-0 bg-gray-900">
-          <img src="https://images.unsplash.com/photo-1518182170546-0766aa6f6b0f?auto=format&fit=crop&q=80&w=1920" alt="CTA Background" className="w-full h-full object-cover opacity-30"/>
+           <img src="/images/9arch.jpg" alt="CTA Background" className="w-full h-full object-cover opacity-30"/>
           <div className="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/60 to-transparent" />
         </div>
         <div className="relative z-10 max-w-5xl mx-auto px-4 text-center">
@@ -259,7 +259,7 @@ const Home = () => {
             viewport={{ once: true }}
             className="text-4xl md:text-6xl font-bold text-white mb-6"
           >
-            The Wild is Calling. <br/> Will You Answer?
+            Paradise is Calling. <br/> Will You Answer?
           </motion.h2>
           <motion.p 
              initial={{ opacity: 0, y: 20 }}
@@ -268,7 +268,7 @@ const Home = () => {
              transition={{ delay: 0.1 }}
              className="text-xl text-gray-300 mb-10 max-w-2xl mx-auto"
           >
-            Seats fill up fast during the season. Secure your spot today for an adventure you'll never forget.
+            Seats fill up fast during the season. Secure your spot today for a journey you'll never forget.
           </motion.p>
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
@@ -277,7 +277,7 @@ const Home = () => {
             transition={{ delay: 0.2 }}
           >
             <Link to="/contact" className="inline-flex items-center gap-3 bg-white text-gray-900 px-10 py-4 rounded-full text-lg font-bold hover:bg-gray-100 transition-colors shadow-[0_0_40px_-10px_rgba(255,255,255,0.3)]">
-              Start Your Adventure <ArrowRight className="w-5 h-5" />
+              Start Your Journey <ArrowRight className="w-5 h-5" />
             </Link>
           </motion.div>
         </div>

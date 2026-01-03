@@ -6,14 +6,12 @@ import {
   FaFacebookF, 
   FaInstagram, 
   FaTiktok, 
-  FaYoutube, 
   FaWhatsapp,
   FaMapMarkerAlt, 
   FaPhoneAlt, 
   FaEnvelope 
 } from "react-icons/fa";
-import { FiChevronRight, FiShield, FiExternalLink } from "react-icons/fi";
-import { HiOutlineBadgeCheck } from "react-icons/hi";
+import { FiChevronRight, FiShield } from "react-icons/fi";
 
 const Footer = () => {
   const [isAdminLoggedIn, setIsAdminLoggedIn] = useState(false);
@@ -22,6 +20,11 @@ const Footer = () => {
     const token = localStorage.getItem('adminToken');
     setIsAdminLoggedIn(!!token);
   }, []);
+
+  // WhatsApp configuration
+  const whatsappNumber = process.env.REACT_APP_WHATSAPP_NUMBER || "+94772217970";
+  const whatsappMessage = encodeURIComponent("Hello! I am interested in booking a trip with Yala Travel Crew.");
+  const whatsappLink = `https://wa.me/${whatsappNumber.replace(/[^0-9]/g, '')}?text=${whatsappMessage}`;
 
   return (
     <footer className="bg-gray-50 text-gray-700 dark:bg-gradient-to-b dark:from-gray-900 dark:to-gray-950 dark:text-gray-300 relative overflow-hidden border-t border-gray-200 dark:border-green-900/30 font-sans">
@@ -67,9 +70,9 @@ const Footer = () => {
             <div className="flex space-x-3">
               {[
                 { icon: <FaFacebookF />, label: "Facebook", link: "https://www.facebook.com/share/17hbSU1V49/?mibextid=wwXIfr" },
-                { icon: <FaInstagram />, label: "Instagram", link: "https://instagram.com" }, // Sample link
-                { icon: <FaTiktok />, label: "TikTok", link: "https://tiktok.com" }, // Sample link
-                { icon: <FaWhatsapp />, label: "WhatsApp", link: "https://wa.me/94775790029" }
+                { icon: <FaInstagram />, label: "Instagram", link: "https://instagram.com" },
+                { icon: <FaTiktok />, label: "TikTok", link: "https://tiktok.com" },
+                { icon: <FaWhatsapp />, label: "WhatsApp", link: whatsappLink }
               ].map((social, i) => (
                 <motion.a
                   key={i}
@@ -172,15 +175,15 @@ const Footer = () => {
               
               <li className="flex items-center space-x-3 group">
                 <FaPhoneAlt className="text-green-500 flex-shrink-0 group-hover:text-green-400 transition-colors" />
-                <a href="tel:+94775790029" className="text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors">
-                  077 579 0029
+                <a href="tel:+94772217970" className="text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors">
+                  077 221 7970
                 </a>
               </li>
 
               <li className="flex items-center space-x-3 group">
                 <FaEnvelope className="text-green-500 flex-shrink-0 group-hover:text-green-400 transition-colors" />
-                <a href="mailto:safari@yalatravelcrew.com" className="text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors">
-                  safari@yalatravelcrew.com
+                <a href="mailto:yalatravelcrew@gmail.com" className="text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors">
+                  yalatravelcrew@gmail.com
                 </a>
               </li>
             </ul>
@@ -210,12 +213,11 @@ const Footer = () => {
               Neth
             </a>
             <span>&</span>
-            <a 
-              href="https://github.com/chiraaax" // Placeholder for Chira
-              className="text-gray-700 dark:text-gray-400 hover:text-green-700 dark:hover:text-green-400 transition-colors border-b border-dotted border-gray-400 dark:border-gray-600 hover:border-green-700 dark:hover:border-green-400"
+            <span 
+              className="text-gray-700 dark:text-gray-400 hover:text-green-700 dark:hover:text-green-400 transition-colors border-b border-dotted border-gray-400 dark:border-gray-600 hover:border-green-700 dark:hover:border-green-400 cursor-pointer"
             >
               Chira
-            </a>
+            </span>
           </div>
 
           {/* Admin & Legal Links */}

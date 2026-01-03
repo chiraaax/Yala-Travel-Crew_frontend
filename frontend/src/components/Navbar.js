@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -11,12 +12,15 @@ const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   
-  // FIX 1: Initialize state directly from localStorage to prevent "Public Nav" flash on Admin pages
   const [isAdminLoggedIn, setIsAdminLoggedIn] = useState(() => {
     return !!localStorage.getItem('adminToken');
   });
 
   const location = useLocation();
+
+  const whatsappNumber = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || "+94772217970"; 
+  const whatsappMessage = encodeURIComponent("Hello! I am interested in booking a trip with Yala Travel Crew.");
+  const whatsappLink = `https://wa.me/${whatsappNumber.replace(/[^0-9]/g, '')}?text=${whatsappMessage}`;
 
   const isHome = location.pathname === '/';
   const isHeroTransparent = (isHome || location.pathname === '/about' || location.pathname === '/tours' || location.pathname === '/rentals' || location.pathname === '/packages' || location.pathname === '/contact') && !scrolled;
@@ -27,7 +31,15 @@ const Navbar = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Sync state if localStorage changes elsewhere (optional safety)
+  useEffect(() => {
+    const savedTheme = localStorage.getItem('theme');
+    
+    if (!savedTheme) {
+      document.documentElement.classList.add('dark');
+      localStorage.setItem('theme', 'dark');
+    }
+  }, []);
+
   useEffect(() => {
     const token = localStorage.getItem('adminToken');
     setIsAdminLoggedIn(!!token);
@@ -39,7 +51,7 @@ const Navbar = () => {
     { path: '/', label: 'Home' },
     { path: '/about', label: 'About Us' },
     { path: '/tours', label: 'Tours' },
-    { path: '/rentals', label: 'Car Rentals' },
+    { path: '/rentals', label: 'Vehicle' },
     { path: '/packages', label: 'Packages' },
     { path: '/gallery', label: 'Gallery' },
     { path: '/contact', label: 'Contact' },
@@ -55,19 +67,20 @@ const Navbar = () => {
 
   const handleLogout = () => {
     localStorage.removeItem('adminToken');
-    setIsAdminLoggedIn(false); // Update state immediately
+    setIsAdminLoggedIn(false);
     window.location.href = '/admin/login';
   };
 
-  // --- REUSABLE COMPONENT: BOOK NOW BUTTON ---
   const BookNowButton = ({ mobile = false, onClick }) => (
     <motion.div
       whileHover={{ scale: 1.05 }}
       whileTap={{ scale: 0.95 }}
       className={mobile ? "w-full mt-2" : ""}
     >
-      <Link
-        to="/booking"
+      <a
+        href={whatsappLink}
+        target="_blank"
+        rel="noopener noreferrer"
         onClick={onClick}
         className={`relative flex items-center justify-center gap-2 px-5 py-2 text-sm font-bold text-white rounded-full overflow-hidden group shadow-lg shadow-green-500/20 ${
           mobile ? "w-full" : ""
@@ -77,11 +90,10 @@ const Navbar = () => {
         <div className="absolute inset-0 bg-white/20 translate-x-[-100%] skew-x-[-15deg] group-hover:translate-x-[100%] transition-transform duration-700" />
         <CalendarCheck className="w-3.5 h-3.5 relative z-10" />
         <span className="relative z-10">Book Now</span>
-      </Link>
+      </a>
     </motion.div>
   );
 
-  // --- REUSABLE COMPONENT: LOGO ---
   const Logo = ({ isAdmin = false }) => (
     <motion.div 
       whileHover={{ scale: 1.05 }} 
@@ -103,7 +115,7 @@ const Navbar = () => {
         
         <div className="flex flex-col justify-center">
           <span
-            className={`text-lg font-bold leading-tight bg-clip-text text-transparent bg-gradient-to-r transition-all duration-300 ${
+            className={`text-base sm:text-lg font-bold leading-tight bg-clip-text text-transparent bg-gradient-to-r transition-all duration-300 ${
               isAdmin 
                 ? 'from-gray-900 to-gray-700 dark:from-white dark:to-gray-200' 
                 : (isHeroTransparent
@@ -137,18 +149,14 @@ const Navbar = () => {
   if (isAdminLoggedIn && location.pathname.startsWith('/admin')) {
     return (
       <nav
-        // FIX: Removed 'motion' animation here to prevent layout shift on load
-        // FIX: Added 'z-[100]' to ensure it sits above everything
-        // FIX: Hardcoded bg-white/dark:bg-gray-950 (No transparency)
         className="fixed top-0 left-0 right-0 z-[100] h-20 bg-white dark:bg-gray-950 border-b border-gray-200 dark:border-gray-800 shadow-sm flex items-center"
       >
         <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center">
-            {/* Admin Logo */}
             <Logo isAdmin={true} />
 
-            {/* Admin Desktop Links */}
-            <div className="hidden md:flex items-center gap-2">
+            {/* Admin Desktop Links - Hidden on tablets, shown on desktop */}
+            <div className="hidden xl:flex items-center gap-2">
               <div className="flex items-center p-1 rounded-xl bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-800">
                 {adminLinks.map((link) => {
                   const Icon = link.icon;
@@ -156,7 +164,7 @@ const Navbar = () => {
                     <Link
                       key={link.path}
                       to={link.path}
-                      className={`flex items-center px-4 py-2 rounded-lg text-sm font-semibold transition-all duration-200 ${
+                      className={`flex items-center px-3 xl:px-4 py-2 rounded-lg text-sm font-semibold transition-all duration-200 ${
                         isActive(link.path)
                           ? 'bg-white dark:bg-gray-800 text-primary-600 dark:text-primary-400 shadow-sm ring-1 ring-gray-200 dark:ring-gray-700'
                           : 'text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800/50'
@@ -182,8 +190,8 @@ const Navbar = () => {
               </button>
             </div>
 
-            {/* Admin Mobile Toggle */}
-            <div className="md:hidden flex items-center gap-4">
+            {/* Admin Mobile/Tablet Toggle - Shown on tablets and mobile */}
+            <div className="xl:hidden flex items-center gap-3 sm:gap-4">
                <ThemeToggle />
                <button 
                 onClick={() => setIsOpen(!isOpen)} 
@@ -195,38 +203,40 @@ const Navbar = () => {
           </div>
         </div>
         
-        {/* Admin Mobile Menu */}
+        {/* Admin Mobile/Tablet Menu */}
         <AnimatePresence>
             {isOpen && (
               <motion.div
                 initial={{ opacity: 0, height: 0 }}
                 animate={{ opacity: 1, height: 'auto' }}
                 exit={{ opacity: 0, height: 0 }}
-                className="md:hidden absolute top-20 left-0 right-0 bg-white dark:bg-gray-950 border-t border-gray-200 dark:border-gray-800 shadow-xl overflow-hidden z-50"
+                className="xl:hidden absolute top-20 left-0 right-0 bg-white dark:bg-gray-950 border-t border-gray-200 dark:border-gray-800 shadow-xl overflow-hidden z-50"
               >
-                <div className="px-4 py-6 space-y-2">
-                  {adminLinks.map((link) => {
-                    const Icon = link.icon;
-                     return (
-                      <Link
-                        key={link.path}
-                        to={link.path}
-                        onClick={() => setIsOpen(false)}
-                        className={`flex items-center px-4 py-3 rounded-xl text-base font-medium transition-all ${
-                          isActive(link.path)
-                            ? 'bg-primary-50 dark:bg-primary-900/20 text-primary-600 dark:text-primary-400 border border-primary-100 dark:border-primary-900/30'
-                            : 'text-gray-700 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-900 hover:text-gray-900 dark:hover:text-white'
-                        }`}
-                      >
-                         <Icon className="w-5 h-5 mr-3" />
-                         {link.label}
-                      </Link>
-                     )
-                  })}
+                <div className="px-4 sm:px-6 py-6 space-y-2 max-h-[calc(100vh-5rem)] overflow-y-auto">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2 sm:gap-3">
+                    {adminLinks.map((link) => {
+                      const Icon = link.icon;
+                        return (
+                        <Link
+                          key={link.path}
+                          to={link.path}
+                          onClick={() => setIsOpen(false)}
+                          className={`flex items-center px-4 py-3 rounded-xl text-base font-medium transition-all ${
+                            isActive(link.path)
+                              ? 'bg-primary-50 dark:bg-primary-900/20 text-primary-600 dark:text-primary-400 border border-primary-100 dark:border-primary-900/30'
+                              : 'text-gray-700 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-900 hover:text-gray-900 dark:hover:text-white'
+                          }`}
+                        >
+                            <Icon className="w-5 h-5 mr-3" />
+                            {link.label}
+                        </Link>
+                        )
+                    })}
+                  </div>
                    <div className="pt-4 border-t border-gray-100 dark:border-gray-800 mt-4">
                       <button 
                         onClick={handleLogout} 
-                        className="w-full flex items-center justify-center gap-2 py-3 text-red-600 dark:text-red-400 font-semibold bg-red-50 dark:bg-red-900/10 hover:bg-red-100 dark:hover:bg-red-900/20 rounded-xl"
+                        className="w-full sm:w-auto sm:min-w-[200px] sm:mx-auto flex items-center justify-center gap-2 py-3 px-6 text-red-600 dark:text-red-400 font-semibold bg-red-50 dark:bg-red-900/10 hover:bg-red-100 dark:hover:bg-red-900/20 rounded-xl"
                       >
                         <LogOut className="w-5 h-5" />
                         Log Out
@@ -251,7 +261,7 @@ const Navbar = () => {
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
         scrolled
           ? 'bg-white/85 dark:bg-gray-950/85 backdrop-blur-md shadow-lg border-b border-gray-200/20 dark:border-gray-800/20 py-2'
-          : 'bg-transparent py-4'
+          : 'bg-transparent py-3 sm:py-4'
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
@@ -259,8 +269,8 @@ const Navbar = () => {
           
           <Logo isAdmin={false} />
 
-          {/* Desktop Navigation */}
-          <div className="hidden lg:flex items-center space-x-1">
+          {/* Desktop Navigation - Hidden on tablets */}
+          <div className="hidden xl:flex items-center space-x-1">
             {navLinks.map((link) => (
               <Link
                 key={link.path}
@@ -281,10 +291,54 @@ const Navbar = () => {
             ))}
           </div>
 
-          {/* Desktop Actions */}
-          <div className="hidden md:flex items-center gap-3">
+          {/* Tablet Navigation - Visible between md and xl breakpoints */}
+          <div className="hidden md:flex xl:hidden items-center space-x-1 overflow-x-auto scrollbar-hide">
+            {navLinks.slice(0, 5).map((link) => (
+              <Link
+                key={link.path}
+                to={link.path}
+                className={`relative px-2.5 py-2 rounded-full text-xs lg:text-sm font-medium transition-all duration-300 group whitespace-nowrap ${
+                  isActive(link.path)
+                    ? (isHeroTransparent
+                      ? 'text-primary-200 bg-white/10'
+                      : 'text-primary-600 dark:text-primary-400 bg-primary-50 dark:bg-primary-900/20')
+                    : (isHeroTransparent
+                      ? 'text-white hover:text-primary-200'
+                      : 'text-gray-700 dark:text-gray-200 hover:text-primary-600 dark:hover:text-primary-400')
+                }`}
+              >
+                {link.label}
+                <span className="absolute bottom-1.5 left-1/2 w-0 h-0.5 bg-primary-500 transition-all duration-300 group-hover:w-1/2 group-hover:-translate-x-1/2" />
+              </Link>
+            ))}
+          </div>
+
+          {/* Desktop Actions - Hidden on tablets */}
+          <div className="hidden xl:flex items-center gap-3">
             <ThemeToggle />
             <BookNowButton />
+          </div>
+
+          {/* Tablet Actions - Visible between md and xl */}
+          <div className="hidden md:flex xl:hidden items-center gap-2 sm:gap-3">
+            <ThemeToggle />
+            <motion.button
+              whileTap={{ scale: 0.9 }}
+              onClick={() => setIsOpen(!isOpen)}
+              className={`p-2 rounded-full transition-colors ${
+                isHeroTransparent 
+                  ? 'bg-white/10 text-white backdrop-blur-md hover:bg-white/20' 
+                  : 'bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-200'
+              }`}
+            >
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                {isOpen ? (
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                ) : (
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+                )}
+              </svg>
+            </motion.button>
           </div>
 
           {/* Mobile Toggle Button */}
@@ -311,36 +365,38 @@ const Navbar = () => {
         </div>
       </div>
 
-      {/* Mobile Navigation Menu */}
+      {/* Mobile/Tablet Navigation Menu */}
       <AnimatePresence>
         {isOpen && (
           <motion.div
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
-            className="md:hidden bg-white/95 dark:bg-gray-950/95 backdrop-blur-xl border-t border-gray-200 dark:border-gray-800 overflow-hidden"
+            className="xl:hidden bg-white/95 dark:bg-gray-950/95 backdrop-blur-xl border-t border-gray-200 dark:border-gray-800 overflow-hidden"
           >
-            <div className="px-4 py-6 space-y-2">
-              {navLinks.map((link, index) => (
-                <motion.div
-                  key={link.path}
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: index * 0.05 }}
-                >
-                  <Link
-                    to={link.path}
-                    onClick={() => setIsOpen(false)}
-                    className={`block px-4 py-3 rounded-xl text-base font-medium transition-all ${
-                      isActive(link.path)
-                        ? 'bg-primary-50 dark:bg-primary-900/20 text-primary-600 dark:text-primary-400'
-                        : 'text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-900'
-                    }`}
+            <div className="px-4 sm:px-6 py-6 space-y-2 max-h-[calc(100vh-5rem)] overflow-y-auto">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-3">
+                {navLinks.map((link, index) => (
+                  <motion.div
+                    key={link.path}
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: index * 0.05 }}
                   >
-                    {link.label}
-                  </Link>
-                </motion.div>
-              ))}
+                    <Link
+                      to={link.path}
+                      onClick={() => setIsOpen(false)}
+                      className={`block px-4 py-3 rounded-xl text-base font-medium transition-all ${
+                        isActive(link.path)
+                          ? 'bg-primary-50 dark:bg-primary-900/20 text-primary-600 dark:text-primary-400'
+                          : 'text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-900'
+                      }`}
+                    >
+                      {link.label}
+                    </Link>
+                  </motion.div>
+                ))}
+              </div>
               
               <div className="pt-4 border-t border-gray-100 dark:border-gray-800 mt-4">
                 <BookNowButton mobile={true} onClick={() => setIsOpen(false)} />

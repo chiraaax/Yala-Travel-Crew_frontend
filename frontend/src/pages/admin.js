@@ -30,30 +30,15 @@ export default function AdminDashboard() {
     },
   ]);
 
-  const handleLogout = () => {
-    localStorage.removeItem('adminToken');
-    window.location.href = '/admin/login';
-  };
-
   // Theme (light / dark) handling
-  const [theme, setTheme] = useState("light");
   useEffect(() => {
     // initialize theme from localStorage or OS preference
     const stored = localStorage.getItem("theme");
     const prefersDark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
     const initial = stored || (prefersDark ? "dark" : "light");
-    setTheme(initial);
     if (initial === "dark") document.documentElement.classList.add("dark");
     else document.documentElement.classList.remove("dark");
   }, []);
-
-  const toggleTheme = () => {
-    const next = theme === "dark" ? "light" : "dark";
-    setTheme(next);
-    localStorage.setItem("theme", next);
-    if (next === "dark") document.documentElement.classList.add("dark");
-    else document.documentElement.classList.remove("dark");
-  };
 
   return (
     <div className="min-h-screen bg-gray-100 dark:bg-gray-900 transition-colors p-8">
