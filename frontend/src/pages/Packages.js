@@ -29,20 +29,6 @@ const Packages = () => {
     }
   };
 
-  if (loading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-gray-900">
-        <motion.div
-          animate={{ rotate: 360 }}
-          transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
-          className="text-6xl"
-        >
-          📦
-        </motion.div>
-      </div>
-    );
-  }
-
   return (
     <PageTransition>
       <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
@@ -68,7 +54,7 @@ const Packages = () => {
                 Curated Experiences
               </h1>
               <p className="text-gray-200">
-                All-inclusive safari packages tailored for you
+                Flexible travel packages tailored to your style.
               </p>
             </div>
           </motion.div>

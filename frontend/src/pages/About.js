@@ -67,7 +67,7 @@ const About = () => {
               We Are <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary-400 to-emerald-400">The Crew</span>
             </h1>
             <p className="text-lg md:text-xl text-gray-200 font-light max-w-2xl mx-auto leading-relaxed">
-              More than just guides, we are storytellers, conservationists, and your partners in exploring the untamed beauty of Sri Lanka.
+              More than just a transport service, we are your dedicated travel partners, committed to helping you explore the island’s diverse beauty safely and comfortably.
             </p>
           </motion.div>
         </section>
@@ -108,7 +108,7 @@ const About = () => {
                 <Users className="w-5 h-5" /> Our Story
               </div>
               <h2 className="text-4xl font-bold mb-6 text-gray-900 dark:text-white leading-tight">
-                Born from a passion for the <span className="text-primary-600">Wild.</span>
+                Born from a passion for the Island’s diverse beauty. 
               </h2>
               <div className="prose dark:prose-invert text-gray-600 dark:text-gray-300 space-y-6 text-lg leading-relaxed">
                 <p>
@@ -145,7 +145,7 @@ const About = () => {
                 Our Core <span className="text-primary-600">Values</span>
               </h2>
               <p className="text-gray-600 dark:text-gray-400 text-lg">
-                We don't just drive you through the park; we guide you with principles that ensure a better experience for you and a better future for the animals.
+                We don't just drive you across the island; we operate with principles that ensure a superior journey for you and respect for the beautiful landscapes we visit.
               </p>
             </div>
 
@@ -153,14 +153,14 @@ const About = () => {
               <ValueCard 
                 icon={Leaf} 
                 title="Conservation" 
-                desc="We actively contribute to habitat preservation and wildlife protection efforts."
+                desc="We actively support initiatives that safeguard our island’s natural heritage, ensuring pristine views for future generations."
                 color="text-green-500"
                 bg="bg-green-50 dark:bg-green-900/20"
               />
               <ValueCard 
                 icon={Award} 
                 title="Excellence" 
-                desc="Top-tier service, from the quality of our vehicles to the knowledge of our guides."
+                desc="Top-tier service, prioritizing immaculate vehicle comfort and the highest standards of safety on every journey."
                 color="text-amber-500"
                 bg="bg-amber-50 dark:bg-amber-900/20"
               />
@@ -206,8 +206,7 @@ const About = () => {
                     Why Travelers <br/>Choose <span className="text-primary-400">Yala Crew</span>
                   </h2>
                   <p className="text-gray-300 text-lg mb-8 leading-relaxed">
-                    In a sea of safari options, we stand out by focusing on the details. 
-                    We limit our group sizes, customize our routes, and ensure you aren't just a passenger, but an explorer.
+                    In a sea of travel options, we stand out by focusing on your comfort. We offer exclusively private transport, flexible schedules, and ensure you aren't just a passenger, but an explorer.
                   </p>
                   <Link 
                     to="/contact" 
@@ -219,11 +218,11 @@ const About = () => {
 
                 <div className="flex-1 w-full bg-white/5 backdrop-blur-md rounded-3xl p-8 border border-white/10">
                   <div className="space-y-6">
-                    <CheckItem text="Expert Naturalist Guides" />
-                    <CheckItem text="Photography-Optimized Jeeps" />
-                    <CheckItem text="Flexible Itineraries" />
-                    <CheckItem text="Ethical Tracking Standards" />
-                    <CheckItem text="24/7 Guest Support" />
+                    <CheckItem text="Expert Naturalist GuidesExperienced Professional Drivers" />
+                    <CheckItem text="Premium Fleet for Every Terrain" />
+                    <CheckItem text="Fully Customizable Schedules " />
+                    <CheckItem text="Eco-Conscious Travel Practices " />
+                    <CheckItem text="Reliable 24/7 Journey Support" />
                   </div>
                 </div>
 

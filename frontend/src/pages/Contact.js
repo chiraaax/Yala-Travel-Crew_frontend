@@ -104,7 +104,7 @@ const handleEmail = async (e) => {
                 Get in <span className="text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-emerald-500">Touch</span>
               </h1>
               <p className="text-lg text-gray-200 font-light">
-                Ready to plan your adventure? We are here to help.
+                Ready to start exploring? We are here to help.
               </p>
             </div>
           </motion.div>

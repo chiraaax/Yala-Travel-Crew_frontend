@@ -9,7 +9,8 @@ import {
   FaWhatsapp,
   FaMapMarkerAlt, 
   FaPhoneAlt, 
-  FaEnvelope 
+  FaEnvelope,
+  FaTripadvisor
 } from "react-icons/fa";
 import { FiChevronRight, FiShield } from "react-icons/fi";
 
@@ -63,7 +64,7 @@ const Footer = () => {
             </div>
             
             <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">
-              Experience the wild like never before. Premium safari adventures and bespoke travel experiences in Sri Lanka's most breathtaking national parks.
+              Experience the island like never before.Luxury transport and curated trips to the country’s most stunning scenic locations.
             </p>
 
             {/* Social icons - Formal */}
@@ -72,6 +73,7 @@ const Footer = () => {
                 { icon: <FaFacebookF />, label: "Facebook", link: "https://www.facebook.com/share/17hbSU1V49/?mibextid=wwXIfr" },
                 { icon: <FaInstagram />, label: "Instagram", link: "https://instagram.com" },
                 { icon: <FaTiktok />, label: "TikTok", link: "https://tiktok.com" },
+                { icon: <FaTripadvisor className="text-lg" />, label: "TripAdvisor", link: "https://www.tripadvisor.com" },
                 { icon: <FaWhatsapp />, label: "WhatsApp", link: whatsappLink }
               ].map((social, i) => (
                 <motion.a
@@ -104,9 +106,9 @@ const Footer = () => {
                 { path: "/", label: "Home" },
                 { path: "/about", label: "About Us" },
                 { path: "/tours", label: "Safari Tours" },
-                { path: "/vehicles", label: "Our Fleet" },
+                { path: "/vehicles", label: "Vehicle" },
                 { path: "/gallery", label: "Gallery" },
-                { path: "/booking", label: "Book Now" },
+                
               ].map((link) => (
                 <motion.li 
                   key={link.path}

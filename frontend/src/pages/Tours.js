@@ -72,7 +72,7 @@ const Tours = () => {
             className="relative z-10 text-center px-4 pt-20"
           >
             <span className="inline-block mb-4 px-4 py-1 rounded-full bg-white/10 backdrop-blur border border-white/20 text-white uppercase tracking-widest text-sm">
-              Wilderness Awaits
+              Your Journey Awaits
             </span>
             <h1 className="text-5xl md:text-7xl font-bold text-white mb-6">
               Curated{" "}
