@@ -11,7 +11,7 @@ const Gallery = () => {
   const [galleryItems, setGalleryItems] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [selectedImage, setSelectedImage] = useState(null);
+  const [setSelectedImage] = useState(null);
 
   useEffect(() => {
     fetchGalleryItems();
