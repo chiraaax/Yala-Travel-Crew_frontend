@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import {
   getGallerys,
   createGallery,
@@ -12,7 +12,6 @@ export default function AdminGallerys() {
   const [editingId, setEditingId] = useState(null);
   const [currentImage, setCurrentImage] = useState("");
   const [loading, setLoading] = useState(false);
-  const [imageErrors, setImageErrors] = useState({});
   const [searchTerm, setSearchTerm] = useState("");
   const [typeFilter, setTypeFilter] = useState("all");
 
@@ -37,11 +36,7 @@ export default function AdminGallerys() {
     return matchesSearch && matchesType;
   });
 
-  useEffect(() => {
-    loadGallerys();
-  }, []);
-
-  const loadGallerys = async () => {
+  const loadGallerys = useCallback(async () => {
     try {
       setLoading(true);
       const res = await getGallerys();
@@ -53,7 +48,11 @@ export default function AdminGallerys() {
     } finally {
       setLoading(false);
     }
-  };
+  }, []);
+
+  useEffect(() => {
+    loadGallerys();
+  }, [loadGallerys]);
 
   const resetForm = () => {
     setForm({
@@ -64,7 +63,6 @@ export default function AdminGallerys() {
     });
     setCurrentImage("");
     setEditingId(null);
-    setImageErrors({});
   };
 
   const handleChange = (e) => {
@@ -397,7 +395,6 @@ export default function AdminGallerys() {
                     className="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-300"
                     onError={(e) => {
                       e.currentTarget.src = 'https://via.placeholder.com/400x300?text=No+Image';
-                      setImageErrors(prev => ({ ...prev, [item._id]: true }));
                     }}
                   />
                   <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 transition-all duration-300"></div>

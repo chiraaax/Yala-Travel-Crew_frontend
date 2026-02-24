@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import {
   getPackages,
   createPackage,
@@ -11,7 +11,6 @@ export default function AdminPackages() {
   const [editingId, setEditingId] = useState(null);
   const [currentImage, setCurrentImage] = useState("");
   const [loading, setLoading] = useState(false);
-  const [imageErrors, setImageErrors] = useState({});
   const [searchTerm, setSearchTerm] = useState("");
 
   const [form, setForm] = useState({
@@ -60,12 +59,7 @@ export default function AdminPackages() {
     pkg.destinations?.some(dest => dest.toLowerCase().includes(searchTerm.toLowerCase()))
   );
 
-  // Load data
-  useEffect(() => {
-    loadPackages();
-  }, []);
-
-  const loadPackages = async () => {
+  const loadPackages = useCallback(async () => {
     try {
       setLoading(true);
       const res = await getPackages();
@@ -77,7 +71,12 @@ export default function AdminPackages() {
     } finally {
       setLoading(false);
     }
-  };
+  }, []);
+
+  // Load data
+  useEffect(() => {
+    loadPackages();
+  }, [loadPackages]);
 
   // Reset form to initial state
   const resetForm = () => {
@@ -94,7 +93,6 @@ export default function AdminPackages() {
     });
     setCurrentImage("");
     setEditingId(null);
-    setImageErrors({});
   };
 
   // Form handling
@@ -502,7 +500,6 @@ export default function AdminPackages() {
                     className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
                     onError={(e) => {
                       e.currentTarget.src = 'https://via.placeholder.com/400x256?text=No+Image';
-                      setImageErrors(prev => ({ ...prev, [pkg._id]: true }));
                     }}
                   />
                   <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 transition-all duration-300"></div>

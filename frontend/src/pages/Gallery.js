@@ -32,22 +32,7 @@ const Gallery = () => {
     }
   };
 
-  /* ================= LOADING ================= */
-  if (loading) {
-    return (
-      <PageTransition>
-        <div className="min-h-screen flex items-center justify-center bg-gray-900">
-          <motion.div
-            animate={{ rotate: 360 }}
-            transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
-            className="text-6xl"
-          >
-            🖼️
-          </motion.div>
-        </div>
-      </PageTransition>
-    );
-  }
+  
 
   return (
     <PageTransition>
@@ -77,7 +62,7 @@ const Gallery = () => {
                 </span>
               </h1>
               <p className="text-lg text-gray-200">
-                Capturing the soul of the Sri Lankan wilderness
+                Capturing the soul of our island paradise.
               </p>
             </div>
           </motion.div>

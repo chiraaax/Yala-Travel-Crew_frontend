@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import { getImageUrl } from "../utils/getImageUrl";
 import {
   getRentals,
@@ -12,7 +12,6 @@ export default function AdminRentals() {
   const [editingId, setEditingId] = useState(null);
   const [currentImage, setCurrentImage] = useState("");
   const [loading, setLoading] = useState(false);
-  const [imageErrors, setImageErrors] = useState({});
   const [searchTerm, setSearchTerm] = useState("");
   const [vehicleTypeFilter, setVehicleTypeFilter] = useState("all");
   const [availabilityFilter, setAvailabilityFilter] = useState("all");
@@ -48,12 +47,7 @@ export default function AdminRentals() {
     return matchesSearch && matchesVehicleType && matchesAvailability;
   });
 
-  // Load rentals
-  useEffect(() => {
-    loadRentals();
-  }, []);
-
-  const loadRentals = async () => {
+  const loadRentals = useCallback(async () => {
     try {
       setLoading(true);
       const res = await getRentals();
@@ -65,7 +59,12 @@ export default function AdminRentals() {
     } finally {
       setLoading(false);
     }
-  };
+  }, []);
+
+  // Load rentals
+  useEffect(() => {
+    loadRentals();
+  }, [loadRentals]);
 
   // Reset form
   const resetForm = () => {
@@ -81,7 +80,6 @@ export default function AdminRentals() {
     });
     setCurrentImage("");
     setEditingId(null);
-    setImageErrors({});
   };
 
   // Handle form input
@@ -523,7 +521,6 @@ export default function AdminRentals() {
                     className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
                     onError={(e) => { 
                       e.currentTarget.src = "https://via.placeholder.com/400x256?text=No+Image";
-                      setImageErrors(prev => ({ ...prev, [rental._id]: true }));
                     }}
                   />
                   <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 transition-all duration-300"></div>
